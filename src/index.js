@@ -31,22 +31,22 @@ const initialContent = [
 
 // Command sequence that drives the animation
 const commandSequence = [
-    { command: 'initialize_website', displayText: '[Analyzing] Example site detected', type: 'system' },
-    { command: 'load_example_site', displayText: '[Planning] Identifying requirements', type: 'system' },
-    { command: 'render_template', displayText: '[Decision] Creating portfolio website', type: 'system' },
-    { command: 'template_ready', displayText: '[Step 1] Setup structure', type: 'checking' },
-    { command: 'prepare_generation', displayText: '[Step 2] Initialize content generation', type: 'system' },
-    { command: 'start_line_rendering', displayText: '[Step 3] Generate header', type: 'system' },
-    { command: 'compile_header', displayText: '[Processing] Name and title', type: 'checking' },
-    { command: 'check_structure', displayText: '[Processing] Format spacing', type: 'checking' },
-    { command: 'scan_blocks', displayText: '[Step 4] Generate about section', type: 'system' },
-    { command: 'load_portfolio', displayText: '[Processing] Background info', type: 'system' },
-    { command: 'integrate_skills', displayText: '[Step 5] Add skills section', type: 'checking' },
-    { command: 'apply_styling', displayText: '[Processing] Insert separator', type: 'system' },
-    { command: 'format_contact', displayText: '[Step 6] Add contact info', type: 'system' },
-    { command: 'finalize_content', displayText: '[Finalizing] Adjusting format', type: 'checking' },
-    { command: 'run_checks', displayText: '[Verifying] Content inspection', type: 'system' },
-    { command: 'complete', displayText: '[Complete] Portfolio generated successfully', type: 'system' }
+    { command: 'initialize_website', displayText: '[USER] build awesome profile page with lots of cool skills', type: '' },
+    { command: 'load_example_site', displayText: '[PROCESSING] Request analysis initiated', type: 'system' },
+    { command: 'render_template', displayText: '[ANALYZING] Example site template detected', type: 'system' },
+    { command: 'template_ready', displayText: '[PLANNING] Creating optimized portfolio structure', type: 'system' },
+    { command: 'prepare_generation', displayText: '[STEP 1] Setup structure', type: 'checking' },
+    { command: 'start_line_rendering', displayText: '[STEP 2] Initialize content generation', type: 'system' },
+    { command: 'compile_header', displayText: '[STEP 3] Generate header', type: 'system' },
+    { command: 'check_structure', displayText: '[PROCESSING] Name and title', type: 'checking' },
+    { command: 'scan_blocks', displayText: '[PROCESSING] Format spacing', type: 'checking' },
+    { command: 'load_portfolio', displayText: '[STEP 4] Generate about section', type: 'system' },
+    { command: 'integrate_skills', displayText: '[STEP 5] Add skills section', type: 'checking' },
+    { command: 'apply_styling', displayText: '[PROCESSING] Insert separator', type: 'system' },
+    { command: 'format_contact', displayText: '[STEP 6] Add contact info', type: 'system' },
+    { command: 'finalize_content', displayText: '[FINALIZING] Adjusting format', type: 'checking' },
+    { command: 'run_checks', displayText: '[VERIFYING] Content inspection', type: 'system' },
+    { command: 'complete', displayText: '[COMPLETE] Portfolio generated successfully', type: 'system' }
 ];
 
 // Special utility commands
@@ -298,15 +298,11 @@ function resetWebsite() {
 
     // Reset title
     document.title = 'Leo Vainio (0%)';
-
-    addChangelogEntry('[Reset] System reset complete', 'system');
-    addChangelogEntry('[Info] Type \'help\' for command list', 'system');
 }
 
 // Clear the changelog
 function clearChangelog() {
     changelogContentElement.innerHTML = '';
-    addChangelogEntry('[System] Terminal cleared', 'system');
 }
 
 // Show help message with available commands
@@ -331,7 +327,7 @@ function showHelp() {
 // Auto-generate the website from beginning to end
 function autoGenerate() {
     resetWebsite();
-    addChangelogEntry('[Starting] Portfolio generation sequence', 'system');
+    // Start directly with the first command (which is the user prompt)
     currentCommandIndex = 0;
     executeNextCommand();
 }
@@ -462,17 +458,21 @@ function init() {
     // Initialize
     document.title = 'Leo Vainio (0%)';
 
-    // Start with system entry
-    addChangelogEntry('[Initializing] Portfolio generator v1.0', 'system');
-    setTimeout(() => addChangelogEntry('[Processing] Scanning requirements', 'checking'), 300);
-    setTimeout(() => addChangelogEntry('[Detected] Portfolio website request', 'system'), 600);
+    // Initial sequence showing "hello world" first, then the prompt
+    showInitialContent();
 
-    // Auto-start generation after a brief delay
+    // After a brief delay, start with the prompt
     setTimeout(() => {
-        addChangelogEntry('[Starting] Automated portfolio generation', 'system');
-        enhanceSkillsSection();
-        autoGenerate();
-    }, 1000);
+        // Add "blinking cursor" effect for a moment before showing prompt
+        addChangelogEntry('[SYSTEM] > _', 'system');
+
+        setTimeout(() => {
+            // Replace the blinking cursor with the actual prompt
+            clearChangelog();
+            enhanceSkillsSection();
+            autoGenerate();
+        }, 1500);
+    }, 2000);
 
     // Make the command interface available globally (for debugging/demonstration)
     window.runCommand = executeCommandByName;

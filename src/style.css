@@ -152,6 +152,21 @@ p {
     color: #f66;
 }
 
+
+/* Style for user input/prompts */
+
+.changelog-entry:first-line {
+    font-weight: normal;
+}
+
+
+/* Special style for user messages */
+
+.changelog-entry:first-child {
+    color: #58a6ff;
+    font-weight: bold;
+}
+
 .changelog-footer {
     margin-top: 10px;
     padding-top: 5px;
