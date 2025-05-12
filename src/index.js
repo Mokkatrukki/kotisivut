@@ -31,22 +31,22 @@ const initialContent = [
 
 // Command sequence that drives the animation
 const commandSequence = [
-    { command: 'initialize_website', displayText: 'Website initialization...', type: '' },
-    { command: 'load_example_site', displayText: 'Loading example site v0.1.0', type: '' },
-    { command: 'render_template', displayText: 'Rendering template...', type: '' },
-    { command: 'template_ready', displayText: 'Template loaded successfully', type: '' },
-    { command: 'prepare_generation', displayText: 'Preparing content generation...', type: 'system' },
-    { command: 'start_line_rendering', displayText: 'Beginning line-by-line rendering', type: 'system' },
-    { command: 'compile_header', displayText: 'Compiling header...', type: 'checking' },
-    { command: 'check_structure', displayText: 'Checking structure...', type: 'checking' },
-    { command: 'scan_blocks', displayText: 'Scanning content blocks', type: 'system' },
-    { command: 'load_portfolio', displayText: 'Loading portfolio content...', type: '' },
-    { command: 'integrate_skills', displayText: 'Integrating skills section', type: 'checking' },
-    { command: 'apply_styling', displayText: 'Applying styling...', type: 'system' },
-    { command: 'format_contact', displayText: 'Formatting contact info', type: '' },
-    { command: 'finalize_content', displayText: 'Finalizing content...', type: 'checking' },
-    { command: 'run_checks', displayText: 'Running final checks', type: 'system' },
-    { command: 'complete', displayText: 'Website v1.0.0 complete', type: '' }
+    { command: 'initialize_website', displayText: 'Hmm it looks like we have an example site...', type: '' },
+    { command: 'load_example_site', displayText: 'Let\'s think what we need to do here...', type: '' },
+    { command: 'render_template', displayText: 'Got it! Let\'s build something cool', type: 'system' },
+    { command: 'template_ready', displayText: 'First, we need a good structure', type: '' },
+    { command: 'prepare_generation', displayText: 'Let\'s prepare the content generation...', type: 'system' },
+    { command: 'start_line_rendering', displayText: 'I\'ll start with a proper header', type: 'system' },
+    { command: 'compile_header', displayText: 'Now adding your name and title...', type: 'checking' },
+    { command: 'check_structure', displayText: 'Let\'s add some spacing for readability', type: 'checking' },
+    { command: 'scan_blocks', displayText: 'Time for the about section', type: 'system' },
+    { command: 'load_portfolio', displayText: 'Let\'s add your background and experience', type: '' },
+    { command: 'integrate_skills', displayText: 'Now for your skills - impressive list!', type: 'checking' },
+    { command: 'apply_styling', displayText: 'Let\'s organize this better with a separator', type: 'system' },
+    { command: 'format_contact', displayText: 'Adding your contact information...', type: '' },
+    { command: 'finalize_content', displayText: 'Running final adjustments...', type: 'checking' },
+    { command: 'run_checks', displayText: 'One last check to make sure everything looks good', type: 'system' },
+    { command: 'complete', displayText: 'Perfect! Your profile is complete', type: '' }
 ];
 
 // Special utility commands
@@ -291,8 +291,8 @@ function executeCommandByName(commandName) {
 
     // Special command for generating an awesome profile
     if (commandName === 'Make awesome profile page with lots of skills') {
-        addChangelogEntry(`Executing: "${commandName}"`, 'system');
-        addChangelogEntry('Preparing to generate an awesome profile!', 'checking');
+        addChangelogEntry(`I'll make an awesome profile with great skills!`, 'system');
+        addChangelogEntry('Let me think about what to include...', 'checking');
         setTimeout(() => {
             // Update the content with more impressive skills
             enhanceSkillsSection();
@@ -319,13 +319,13 @@ function executeCommandByName(commandName) {
     // Check for animation commands
     const commandObj = commandSequence.find(cmd => cmd.command === commandName);
     if (commandObj) {
-        addChangelogEntry(`Execute: ${commandName}`, 'system');
+        addChangelogEntry(`I'll ${commandName.replace(/_/g, ' ')} now...`, 'system');
         addChangelogEntry(commandObj.displayText, commandObj.type);
         executeCommand(commandObj.command);
         return true;
     } else {
-        addChangelogEntry(`Unknown command: ${commandName}`, 'error');
-        addChangelogEntry(`Type 'help' to see available commands`, 'system');
+        addChangelogEntry(`Hmm, I don't recognize that command: "${commandName}"`, 'error');
+        addChangelogEntry(`Type 'help' and I'll show you what I can do`, 'system');
         console.error(`Command not found: ${commandName}`);
         return false;
     }
@@ -336,10 +336,10 @@ function toggleCommandInput() {
     const changelog = document.querySelector('.changelog');
     if (changelog.classList.contains('show-command')) {
         changelog.classList.remove('show-command');
-        addChangelogEntry('Command input hidden', 'system');
+        addChangelogEntry('I\'ve hidden the command input', 'system');
     } else {
         changelog.classList.add('show-command');
-        addChangelogEntry('Command input shown - type commands here', 'system');
+        addChangelogEntry('You can type commands here now', 'system');
         // Focus the input field
         setTimeout(() => document.getElementById('command-input').focus(), 100);
     }
@@ -347,7 +347,7 @@ function toggleCommandInput() {
 
 // Show help message with available commands
 function showHelp() {
-    addChangelogEntry('Available commands:', 'system');
+    addChangelogEntry('I can help you with these commands:', 'system');
 
     // Add special commands
     addChangelogEntry('  toggle-input: Show/hide the command input', '');
@@ -358,7 +358,7 @@ function showHelp() {
     });
 
     // Add website generation commands
-    addChangelogEntry('Website generation commands:', 'system');
+    addChangelogEntry('Or I can build your profile step by step:', 'system');
     commandSequence.forEach(cmd => {
         addChangelogEntry(`  ${cmd.command}`, '');
     });
@@ -388,14 +388,14 @@ function resetWebsite() {
     // Reset title
     document.title = 'Leo Vainio (0%)';
 
-    addChangelogEntry('Website reset complete', 'system');
-    addChangelogEntry(`Type 'help' to see available commands`, 'system');
+    addChangelogEntry('I\'ve reset everything. Let\'s start fresh!', 'system');
+    addChangelogEntry('Type \'help\' if you need assistance', 'system');
 }
 
 // Auto-generate the website from beginning to end
 function autoGenerate() {
     resetWebsite();
-    addChangelogEntry('Auto-generating website...', 'system');
+    addChangelogEntry('I\'ll create a professional profile for you now...', 'system');
     currentCommandIndex = 0;
     executeNextCommand();
 }
@@ -463,13 +463,13 @@ function init() {
     document.title = 'Leo Vainio (0%)';
 
     // Start with system entry
-    addChangelogEntry('Generating...', 'system');
-    setTimeout(() => addChangelogEntry('Checking index.js', 'checking'), 300);
-    setTimeout(() => addChangelogEntry('Website ready', 'system'), 600);
+    addChangelogEntry('Hello! I\'m going to build a profile page for you...', 'system');
+    setTimeout(() => addChangelogEntry('Analyzing your requirements...', 'checking'), 300);
+    setTimeout(() => addChangelogEntry('I see you need a developer portfolio', 'system'), 600);
 
     // Auto-start generation after a brief delay
     setTimeout(() => {
-        addChangelogEntry('Auto-generating profile... press Ctrl+/ to show command input', 'system');
+        addChangelogEntry('Let me create something for you. Press Ctrl+/ if you want to give me commands', 'system');
         enhanceSkillsSection();
         autoGenerate();
     }, 1000);
