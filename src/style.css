@@ -202,12 +202,20 @@ p {
 /* Command Input Styles */
 
 .command-input {
-    display: flex;
+    display: none;
+    /* Hide by default */
     align-items: center;
     background-color: #2a2a2a;
     border-radius: 3px;
     padding: 5px 8px;
     margin-bottom: 10px;
+}
+
+
+/* Show command input when .show-command class is added */
+
+.show-command .command-input {
+    display: flex;
 }
 
 .command-input span {

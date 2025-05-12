@@ -283,6 +283,12 @@ function switchToRealContent() {
 
 // Add a command interface for manual command execution
 function executeCommandByName(commandName) {
+    // Special commands
+    if (commandName === 'toggle-input' || commandName === 'show-input') {
+        toggleCommandInput();
+        return true;
+    }
+
     // Special command for generating an awesome profile
     if (commandName === 'Make awesome profile page with lots of skills') {
         addChangelogEntry(`Executing: "${commandName}"`, 'system');
@@ -325,9 +331,26 @@ function executeCommandByName(commandName) {
     }
 }
 
+// Toggle the command input visibility
+function toggleCommandInput() {
+    const changelog = document.querySelector('.changelog');
+    if (changelog.classList.contains('show-command')) {
+        changelog.classList.remove('show-command');
+        addChangelogEntry('Command input hidden', 'system');
+    } else {
+        changelog.classList.add('show-command');
+        addChangelogEntry('Command input shown - type commands here', 'system');
+        // Focus the input field
+        setTimeout(() => document.getElementById('command-input').focus(), 100);
+    }
+}
+
 // Show help message with available commands
 function showHelp() {
     addChangelogEntry('Available commands:', 'system');
+
+    // Add special commands
+    addChangelogEntry('  toggle-input: Show/hide the command input', '');
 
     // Add utility commands
     utilityCommands.forEach(cmd => {
@@ -428,6 +451,14 @@ function init() {
         }
     });
 
+    // Add keyboard shortcut to toggle command input (Ctrl+/)
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === '/') {
+            toggleCommandInput();
+            e.preventDefault();
+        }
+    });
+
     // Initialize
     document.title = 'Leo Vainio (0%)';
 
@@ -435,27 +466,17 @@ function init() {
     addChangelogEntry('Generating...', 'system');
     setTimeout(() => addChangelogEntry('Checking index.js', 'checking'), 300);
     setTimeout(() => addChangelogEntry('Website ready', 'system'), 600);
-    setTimeout(() => addChangelogEntry(`Type 'help' for available commands`, 'system'), 900);
+
+    // Auto-start generation after a brief delay
     setTimeout(() => {
-        // Execute the default command after a delay
-        const defaultCommand = commandInput.value.trim();
-        if (defaultCommand && defaultCommand === "Make awesome profile page with lots of skills") {
-            addChangelogEntry(`Executing default command: "${defaultCommand}"`, 'system');
-            // Auto-focus the input field
-            commandInput.focus();
-            // Start auto-generation after showing the default command
-            setTimeout(() => {
-                autoGenerate();
-                // Clear the input after execution
-                commandInput.value = '';
-            }, 1000);
-        } else {
-            addChangelogEntry(`Type 'auto' to auto-generate the website`, 'system');
-        }
-    }, 1500);
+        addChangelogEntry('Auto-generating profile... press Ctrl+/ to show command input', 'system');
+        enhanceSkillsSection();
+        autoGenerate();
+    }, 1000);
 
     // Make the command interface available globally (for debugging/demonstration)
     window.runCommand = executeCommandByName;
+    window.toggleInput = toggleCommandInput;
 }
 
 // Start the animation when the page loads
