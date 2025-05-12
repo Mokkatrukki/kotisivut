@@ -283,6 +283,18 @@ function switchToRealContent() {
 
 // Add a command interface for manual command execution
 function executeCommandByName(commandName) {
+    // Special command for generating an awesome profile
+    if (commandName === 'Make awesome profile page with lots of skills') {
+        addChangelogEntry(`Executing: "${commandName}"`, 'system');
+        addChangelogEntry('Preparing to generate an awesome profile!', 'checking');
+        setTimeout(() => {
+            // Update the content with more impressive skills
+            enhanceSkillsSection();
+            autoGenerate();
+        }, 800);
+        return true;
+    }
+
     // Check for utility commands first
     if (commandName === 'help') {
         showHelp();
@@ -365,6 +377,34 @@ function autoGenerate() {
     executeNextCommand();
 }
 
+// Enhance the skills section with more impressive skills
+function enhanceSkillsSection() {
+    // Replace the skills section with more impressive skills
+    websiteContent = [
+        { tag: 'h1', text: 'HELLO WORLD' },
+        { tag: 'h1', text: 'Leo Vainio' },
+        { tag: 'h2', text: 'Full-Stack Developer & UX Designer' },
+        { tag: 'p', text: '----------------------------' },
+        { tag: 'h2', text: 'About Me' },
+        { tag: 'p', text: 'I am a passionate software engineer with expertise in modern web development and user experience design.' },
+        { tag: 'p', text: 'With a strong foundation in both frontend and backend technologies, I create elegant solutions to complex problems.' },
+        { tag: 'p', text: '----------------------------' },
+        { tag: 'h2', text: 'Core Skills' },
+        { tag: 'p', text: '• JavaScript/TypeScript (React, Next.js, Vue.js)' },
+        { tag: 'p', text: '• Python (Django, Flask, FastAPI)' },
+        { tag: 'p', text: '• Node.js (Express, NestJS)' },
+        { tag: 'p', text: '• GraphQL & RESTful API Design' },
+        { tag: 'p', text: '• Cloud Architecture (AWS, Azure)' },
+        { tag: 'p', text: '• DevOps (Docker, Kubernetes, CI/CD)' },
+        { tag: 'p', text: '• UI/UX Design (Figma, Adobe Suite)' },
+        { tag: 'p', text: '----------------------------' },
+        { tag: 'h2', text: 'Contact' },
+        { tag: 'p', text: 'Email: example@example.com' },
+        { tag: 'p', text: 'GitHub: github.com/username' },
+        { tag: 'p', text: 'LinkedIn: linkedin.com/in/username' },
+    ];
+}
+
 // Initialize the animation when the DOM is loaded
 function init() {
     contentElement = document.getElementById('content');
@@ -396,7 +436,23 @@ function init() {
     setTimeout(() => addChangelogEntry('Checking index.js', 'checking'), 300);
     setTimeout(() => addChangelogEntry('Website ready', 'system'), 600);
     setTimeout(() => addChangelogEntry(`Type 'help' for available commands`, 'system'), 900);
-    setTimeout(() => addChangelogEntry(`Type 'auto' to auto-generate the website`, 'system'), 1200);
+    setTimeout(() => {
+        // Execute the default command after a delay
+        const defaultCommand = commandInput.value.trim();
+        if (defaultCommand && defaultCommand === "Make awesome profile page with lots of skills") {
+            addChangelogEntry(`Executing default command: "${defaultCommand}"`, 'system');
+            // Auto-focus the input field
+            commandInput.focus();
+            // Start auto-generation after showing the default command
+            setTimeout(() => {
+                autoGenerate();
+                // Clear the input after execution
+                commandInput.value = '';
+            }, 1000);
+        } else {
+            addChangelogEntry(`Type 'auto' to auto-generate the website`, 'system');
+        }
+    }, 1500);
 
     // Make the command interface available globally (for debugging/demonstration)
     window.runCommand = executeCommandByName;

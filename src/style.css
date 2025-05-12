@@ -156,11 +156,17 @@ p {
     margin-top: 10px;
     padding-top: 5px;
     border-top: 1px solid var(--console-border);
-    color: #777;
-    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .agent-badge {
