@@ -1,6 +1,8 @@
 :root {
     --bg-color: #222;
     --text-color: #f8f8f8;
+    --console-bg: #1a1a1a;
+    --console-border: #444;
 }
 
 * {
@@ -46,4 +48,136 @@ h2 {
 
 p {
     margin-bottom: 0.5rem;
+}
+
+
+/* Changelog/Chat Window Styles */
+
+.changelog {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    background-color: var(--console-bg);
+    border: 1px solid var(--console-border);
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    z-index: 1000;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.9;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#changelog-content {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    max-height: calc(100% - 60px);
+    scrollbar-width: thin;
+    scrollbar-color: #444 var(--console-bg);
+}
+
+#changelog-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+#changelog-content::-webkit-scrollbar-track {
+    background: var(--console-bg);
+}
+
+#changelog-content::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 3px;
+}
+
+.changelog-header {
+    color: #aaa;
+    margin-bottom: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--console-border);
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.model-badge {
+    background-color: #2d3748;
+    color: #4a9;
+    font-size: 11px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: normal;
+}
+
+.changelog-entry {
+    color: var(--text-color);
+    padding: 3px 0;
+}
+
+.changelog-entry::before {
+    content: "> ";
+    color: #4a9;
+}
+
+.changelog-entry.system {
+    color: #4a9;
+    font-style: italic;
+}
+
+.changelog-entry.system::before {
+    content: "$ ";
+    color: #777;
+}
+
+.changelog-entry.checking {
+    color: #fc8;
+}
+
+.changelog-entry.checking::before {
+    content: "# ";
+    color: #fc8;
+}
+
+.changelog-footer {
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px solid var(--console-border);
+    color: #777;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agent-badge {
+    background-color: #2d3748;
+    color: #58a6ff;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.changelog-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background-color: #4a9;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+    margin-top: 5px;
+}
+
+@keyframes blink {
+    0%,
+    49% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
 }
