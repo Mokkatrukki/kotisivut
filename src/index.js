@@ -1,7 +1,7 @@
 import './style.css';
 
 // Content to be displayed line by line
-const websiteContent = [
+let websiteContent = [
     { tag: 'h1', text: 'HELLO WORLD' },
     { tag: 'h1', text: 'Leo Vainio' },
     { tag: 'h2', text: 'Developer & Designer' },
