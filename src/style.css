@@ -3,6 +3,7 @@
     --text-color: #f8f8f8;
     --console-bg: #1a1a1a;
     --console-border: #444;
+    --command-color: #4a9;
 }
 
 * {
@@ -142,6 +143,15 @@ p {
     color: #fc8;
 }
 
+.changelog-entry.error {
+    color: #f66;
+}
+
+.changelog-entry.error::before {
+    content: "! ";
+    color: #f66;
+}
+
 .changelog-footer {
     margin-top: 10px;
     padding-top: 5px;
@@ -180,4 +190,48 @@ p {
     100% {
         opacity: 0;
     }
+}
+
+
+/* Command Input Styles */
+
+.command-input {
+    display: flex;
+    align-items: center;
+    background-color: #2a2a2a;
+    border-radius: 3px;
+    padding: 5px 8px;
+    margin-bottom: 10px;
+}
+
+.command-input span {
+    color: var(--command-color);
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+#command-input {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    outline: none;
+}
+
+#run-command {
+    background-color: #2d3748;
+    color: var(--command-color);
+    border: none;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+#run-command:hover {
+    background-color: #3a4a5e;
 }
