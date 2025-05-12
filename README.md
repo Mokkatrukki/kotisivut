@@ -43,6 +43,31 @@ A minimalist personal portfolio website that simulates a code editor with line-b
    npm run build
    ```
 
+## Deployment
+
+### GitHub Pages
+
+This project is set up for easy deployment to GitHub Pages:
+
+1. First, update the `homepage` field in `package.json` with your GitHub username:
+   ```json
+   "homepage": "https://yourusername.github.io/kotisivut"
+   ```
+
+2. Deploy to GitHub Pages with:
+   ```
+   npm run deploy
+   ```
+
+3. Your site will be available at `https://yourusername.github.io/kotisivut`
+
+### Custom Domain
+
+To use a custom domain:
+
+1. Create a `CNAME` file in the `public` folder with your domain name
+2. Configure your DNS settings as described in [GitHub Pages documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+
 ## Customization
 
 ### Content
