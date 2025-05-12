@@ -23,6 +23,13 @@ body {
     justify-content: center;
 }
 
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
 .editor {
     width: 80%;
     max-width: 800px;

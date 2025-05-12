@@ -1,5 +1,13 @@
 import './style.css';
 
+// Extend the Window interface to include custom properties
+declare global {
+    interface Window {
+        runCommand: (commandName: string) => boolean;
+        toggleInput: () => void;
+    }
+}
+
 // Content to be displayed line by line
 let websiteContent = [
     { tag: 'h1', text: 'HELLO WORLD' },
@@ -335,14 +343,19 @@ function autoGenerate() {
 // Toggle the command input visibility
 function toggleCommandInput() {
     const changelog = document.querySelector('.changelog');
-    if (changelog.classList.contains('show-command')) {
-        changelog.classList.remove('show-command');
-        addChangelogEntry('[UI] Command input hidden', 'system');
-    } else {
-        changelog.classList.add('show-command');
-        addChangelogEntry('[UI] Command input active', 'system');
-        // Focus the input field
-        setTimeout(() => document.getElementById('command-input').focus(), 100);
+    if (changelog) {
+        if (changelog.classList.contains('show-command')) {
+            changelog.classList.remove('show-command');
+            addChangelogEntry('[UI] Command input hidden', 'system');
+        } else {
+            changelog.classList.add('show-command');
+            addChangelogEntry('[UI] Command input active', 'system');
+            // Focus the input field
+            const commandInput = document.getElementById('command-input') as HTMLInputElement | null;
+            if (commandInput) {
+                setTimeout(() => commandInput.focus(), 100);
+            }
+        }
     }
 }
 
@@ -428,24 +441,28 @@ function enhanceSkillsSection() {
 function init() {
     contentElement = document.getElementById('content');
     changelogContentElement = document.getElementById('changelog-content');
-    const commandInput = document.getElementById('command-input');
+    const commandInput = document.getElementById('command-input') as HTMLInputElement | null;
     const runCommandButton = document.getElementById('run-command');
 
-    // Setup command input
-    runCommandButton.addEventListener('click', () => {
-        const command = commandInput.value.trim();
-        if (command) {
-            executeCommandByName(command);
-            commandInput.value = '';
-        }
-    });
+    // Ensure elements exist before adding listeners
+    if (runCommandButton && commandInput) {
+        runCommandButton.addEventListener('click', () => {
+            const command = commandInput.value.trim();
+            if (command) {
+                executeCommandByName(command);
+                commandInput.value = '';
+            }
+        });
+    }
 
-    commandInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && commandInput.value.trim()) {
-            executeCommandByName(commandInput.value.trim());
-            commandInput.value = '';
-        }
-    });
+    if (commandInput) {
+        commandInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && commandInput.value.trim()) {
+                executeCommandByName(commandInput.value.trim());
+                commandInput.value = '';
+            }
+        });
+    }
 
     // Add keyboard shortcut to toggle command input (Ctrl+/)
     document.addEventListener('keydown', (e) => {
@@ -456,6 +473,11 @@ function init() {
     });
 
     // Initialize
+    if (!contentElement || !changelogContentElement) {
+        console.error("Required elements not found!");
+        return; // Don't proceed if essential elements are missing
+    }
+
     document.title = 'Leo Vainio (0%)';
 
     // Initial sequence showing "hello world" first, then the prompt

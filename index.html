@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo Vainio</title>
+    <!-- The link to style.css will be removed from here -->
+</head>
+
+<body>
+    <div class="container">
+        <div class="editor">
+            <div class="editor-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="title">Portfolio</span>
+            </div>
+            <div class="editor-content" id="content">
+                <!-- Content will be generated here -->
+            </div>
+        </div>
+        <div class="changelog">
+            <div class="changelog-header">Terminal</div>
+            <div class="changelog-content" id="changelog-content">
+                <!-- Changelog entries will be generated here -->
+            </div>
+            <div class="command-line">
+                <span class="prompt">&gt;</span>
+                <input type="text" id="command-input" placeholder="Type command (Ctrl+/ to toggle)">
+                <button id="run-command">Run</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/index.ts"></script>
+</body>
+
+</html>

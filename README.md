@@ -51,7 +51,7 @@ This project is set up for easy deployment to GitHub Pages:
 
 1. First, update the `homepage` field in `package.json` with your GitHub username:
    ```json
-   "homepage": "https://yourusername.github.io/kotisivut"
+   "homepage": "https://mokkatrukki.github.io/kotisivut"
    ```
 
 2. Deploy to GitHub Pages with:
@@ -59,7 +59,7 @@ This project is set up for easy deployment to GitHub Pages:
    npm run deploy
    ```
 
-3. Your site will be available at `https://yourusername.github.io/kotisivut`
+3. Your site will be available at `https://mokkatrukki.github.io/kotisivut`
 
 ### Custom Domain
 
@@ -72,10 +72,10 @@ To use a custom domain:
 
 ### Content
 
-Edit the `websiteContent` array in `src/index.js` to customize your portfolio content:
+Edit the `websiteContent` array in `src/index.ts` to customize your portfolio content:
 
-```javascript
-let websiteContent = [
+```typescript
+let websiteContent: Array<{ tag: string, text: string }> = [
     { tag: 'h1', text: 'Your Name' },
     { tag: 'h2', text: 'Your Title' },
     // Add more content items...
@@ -84,10 +84,10 @@ let websiteContent = [
 
 ### Command Messages
 
-Modify the `commandSequence` array to change the terminal messages:
+Modify the `commandSequence` array in `src/index.ts` to change the terminal messages:
 
-```javascript
-const commandSequence = [
+```typescript
+const commandSequence: Array<{ command: string, displayText: string, type: string }> = [
     { command: 'initialize_website', displayText: '[USER] build awesome profile page with lots of cool skills', type: '' },
     // More commands...
 ];
@@ -108,9 +108,9 @@ Press `Ctrl+/` to toggle the command input, then try these commands:
 
 ## Technologies Used
 
-- JavaScript (ES6+)
+- TypeScript
 - HTML5/CSS3
-- Webpack
+- Vite
 - NPM
 
 ## License
