@@ -223,9 +223,8 @@ p {
 
 /* Command Input Styles */
 
-.command-input {
-    display: none;
-    /* Hide by default */
+.command-line {
+    display: flex;
     align-items: center;
     background-color: #2a2a2a;
     border-radius: 3px;
@@ -233,14 +232,7 @@ p {
     margin-bottom: 10px;
 }
 
-
-/* Show command input when .show-command class is added */
-
-.show-command .command-input {
-    display: flex;
-}
-
-.command-input span {
+.command-line span {
     color: var(--command-color);
     margin-right: 8px;
     font-weight: bold;

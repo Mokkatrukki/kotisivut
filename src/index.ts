@@ -317,9 +317,6 @@ function clearChangelog() {
 function showHelp() {
     addChangelogEntry('[Help] Available commands:', 'system');
 
-    // Add special commands
-    addChangelogEntry('  toggle-input: Toggle command interface', '');
-
     // Add utility commands
     utilityCommands.forEach(cmd => {
         addChangelogEntry(`  ${cmd.command}: ${cmd.description}`, '');
@@ -340,33 +337,8 @@ function autoGenerate() {
     executeNextCommand();
 }
 
-// Toggle the command input visibility
-function toggleCommandInput() {
-    const changelog = document.querySelector('.changelog');
-    if (changelog) {
-        if (changelog.classList.contains('show-command')) {
-            changelog.classList.remove('show-command');
-            addChangelogEntry('[UI] Command input hidden', 'system');
-        } else {
-            changelog.classList.add('show-command');
-            addChangelogEntry('[UI] Command input active', 'system');
-            // Focus the input field
-            const commandInput = document.getElementById('command-input') as HTMLInputElement | null;
-            if (commandInput) {
-                setTimeout(() => commandInput.focus(), 100);
-            }
-        }
-    }
-}
-
 // Add a command interface for manual command execution
-function executeCommandByName(commandName) {
-    // Special commands
-    if (commandName === 'toggle-input' || commandName === 'show-input') {
-        toggleCommandInput();
-        return true;
-    }
-
+function executeCommandByName(commandName: string): boolean {
     // Special command for generating an awesome profile
     if (commandName === 'Make awesome profile page with lots of skills') {
         addChangelogEntry(`[Request] ${commandName}`, 'system');
@@ -464,14 +436,6 @@ function init() {
         });
     }
 
-    // Add keyboard shortcut to toggle command input (Ctrl+/)
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === '/') {
-            toggleCommandInput();
-            e.preventDefault();
-        }
-    });
-
     // Initialize
     if (!contentElement || !changelogContentElement) {
         console.error("Required elements not found!");
@@ -498,7 +462,6 @@ function init() {
 
     // Make the command interface available globally (for debugging/demonstration)
     window.runCommand = executeCommandByName;
-    window.toggleInput = toggleCommandInput;
 }
 
 // Start the animation when the page loads
