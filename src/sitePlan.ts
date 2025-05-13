@@ -1,11 +1,11 @@
 import { SitePlan } from './types.js';
 
 // Default animation settings (can be overridden in specific steps or by theme)
-const DEFAULT_TYPING_SPEED = 10;
-const DEFAULT_LINE_DELAY = 100;
-const DEFAULT_COMMAND_DELAY = 800;
-const DEFAULT_WIPE_SPEED = 10;
-const DEFAULT_WIPE_CHARS = 5;
+const DEFAULT_TYPING_SPEED = 7;
+const DEFAULT_LINE_DELAY = 67;
+const DEFAULT_COMMAND_DELAY = 533;
+const DEFAULT_WIPE_SPEED = 7;
+const DEFAULT_WIPE_CHARS = 8;
 
 export const ENHANCE_COMMAND_TEXT = 'Make awesome profile page with lots of skills';
 
@@ -153,67 +153,102 @@ export const sitePlanData: SitePlan = {
         { command: 'skip', displayText: 'Skip to final content', description: 'Instantly displays the final website content.'}
     ],
     flow: [
-        // Phase 1: Initial Setup & User Prompt
-        { id: "f-prompt", action: "log", logMessage: "[USER] build awesome profile page with lots of cool skills", logType: "user" },
-        { id: "f-proc-req", action: "log", logMessage: "[PROCESSING] Request analysis initiated", logType: "system" },
-        { id: "f-render-initial", action: "renderInitial", logMessage: "[ANALYZING] Example site template detected", logType: "system" },
-        { id: "f-delay1", action: "delay", delayMs: 1000 },
+        // P0: Initial Setup & User Prompt
+        { id: "p0-f-prompt", action: "log", logMessage: "[USER] build awesome profile page with lots of cool skills", logType: "user" },
+        { id: "p0-f-proc-req", action: "log", logMessage: "[PROCESSING] Request analysis initiated", logType: "system" },
+        { id: "p0-f-render-initial-example", action: "renderInitial", logMessage: "[ANALYZING] Example site template detected", logType: "system" },
+        { id: "p0-f-delay1", action: "delay", delayMs: 330 },
+        { id: "p0-f-wipe", action: "clearContentArea", logMessage: "[PLANNING] Preparing for full site generation", logType: "system" },
+        { id: "p0-f-delay2", action: "delay", delayMs: 170 },
 
-        // Phase 2: Transition to Real Content
-        { id: "f-wipe", action: "clearContentArea", logMessage: "[PLANNING] Creating optimized portfolio structure", logType: "system" },
-        { id: "f-delay2", action: "delay", delayMs: 500 },
+        // P1: Full V1 Draft Generation
+        { id: "p1-f-log-draft-start", action: "log", logMessage: "[SYSTEM] Generating initial V1 draft of the website...", logType: "system" },
         
-        // Phase 3: Render Header with potential "thought" and "update"
-        { id: "f-hdr-log", action: "log", logMessage: "[STEP 1] Generate header", logType: "system" },
-        { id: "f-hdr-name", action: "renderElement", targetSectionId: "header", targetElementId: "header-h1-name", targetVersionId: "v1"},
-        { id: "f-hdr-title-v1", action: "renderElement", targetSectionId: "header", targetElementId: "header-h2-title", targetVersionId: "v1"},
-        { id: "f-hdr-thought", action: "thought", logMessage: "[AI_THOUGHT] 'Developer & Designer' is good, but 'Full-Stack Developer & UX Designer' is more specific to the enhanced skills.", logType: "ai-thought"},
-        { id: "f-hdr-delay-thought", action: "delay", delayMs: 1200},
-        { id: "f-hdr-title-update", action: "updateElement", targetSectionId: "header", targetElementId: "header-h2-title", targetVersionId: "v2", logMessage: "[REVISING] Refining title...", logType: "checking"},
+        { id: "p1-f-hdr-log", action: "log", logMessage: "[RENDERING V1] Header section...", logType: "checking" },
+        { id: "p1-f-hdr-name", action: "renderElement", targetSectionId: "header", targetElementId: "header-h1-name", targetVersionId: "v1"},
+        { id: "p1-f-hdr-title", action: "renderElement", targetSectionId: "header", targetElementId: "header-h2-title", targetVersionId: "v1"},
         
-        // Phase 4: Separator
-        { id: "f-sep1-log", action: "log", logMessage: "[PROCESSING] Format spacing", logType: "checking"},
-        { id: "f-sep1-render", action: "renderSection", targetSectionId: "sep1"},
-
-        // Phase 5: About Me with "thought" and "update"
-        { id: "f-about-log", action: "log", logMessage: "[STEP 2] Generate About Me", logType: "system"},
-        { id: "f-about-h2", action: "renderElement", targetSectionId: "about", targetElementId: "about-h2", targetVersionId: "v1"},
-        { id: "f-about-p1v1", action: "renderElement", targetSectionId: "about", targetElementId: "about-p1", targetVersionId: "v1"},
-        { id: "f-about-p1-thought", action: "thought", logMessage: "[AI_THOUGHT] The first sentence about passion is a bit generic.", logType: "ai-thought"},
-        { id: "f-about-p1-delay", action: "delay", delayMs: 1000},
-        { id: "f-about-p1-update", action: "updateElement", targetSectionId: "about", targetElementId: "about-p1", targetVersionId: "v2", logMessage: "[REVISING] About Me - P1 (professional tone).", logType: "checking"},
-        { id: "f-about-p2v1", action: "renderElement", targetSectionId: "about", targetElementId: "about-p2", targetVersionId: "v1"},
-        { id: "f-about-p2-thought", action: "thought", logMessage: "[AI_THOUGHT] The second sentence can be more impactful.", logType: "ai-thought"},
-        { id: "f-about-p2-delay", action: "delay", delayMs: 1000},
-        { id: "f-about-p2-update", action: "updateElement", targetSectionId: "about", targetElementId: "about-p2", targetVersionId: "v2", logMessage: "[REVISING] About Me - P2 (capabilities).", logType: "checking"},
-
-        // Phase 6: Skills section (simplified for brevity - could have thoughts and updates per skill)
-        { id: "f-sep2-render", action: "renderSection", targetSectionId: "sep2"},
-        { id: "f-skills-log", action: "log", logMessage: "[STEP 3] Add Skills", logType: "system"},
-        { id: "f-skills-h2", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-h2", targetVersionId: "v2"}, // Start with final H2
-        { id: "f-skills-js", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-js", targetVersionId: "v2"},
-        { id: "f-skills-html", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-html", targetVersionId: "v1"},
-        // ... render other final skills directly or go through v1 -> v2 if desired for animation
-        { id: "f-skills-node", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-node", targetVersionId: "v2"},
-        { id: "f-skills-python", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-python", targetVersionId: "v2"},
-        { id: "f-skills-graphql", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-graphql", targetVersionId: "v2"},
-        { id: "f-skills-cloud", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-cloud", targetVersionId: "v2"},
-        { id: "f-skills-devops", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-devops", targetVersionId: "v2"},
-        { id: "f-skills-uiux", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-uiux", targetVersionId: "v2"},
+        { id: "p1-f-sep1", action: "renderSection", targetSectionId: "sep1"},
         
-        // Phase 7: Contact
-        { id: "f-sep3-render", action: "renderSection", targetSectionId: "sep3"},
-        { id: "f-contact-log", action: "log", logMessage: "[STEP 4] Add Contact Info", logType: "system"},
-        { id: "f-contact-render", action: "renderSection", targetSectionId: "contact"}, // Renders all elements with their final version
+        { id: "p1-f-about-log", action: "log", logMessage: "[RENDERING V1] About Me section...", logType: "checking" },
+        { id: "p1-f-about-h2", action: "renderElement", targetSectionId: "about", targetElementId: "about-h2", targetVersionId: "v1"},
+        { id: "p1-f-about-p1", action: "renderElement", targetSectionId: "about", targetElementId: "about-p1", targetVersionId: "v1"},
+        { id: "p1-f-about-p2", action: "renderElement", targetSectionId: "about", targetElementId: "about-p2", targetVersionId: "v1"},
 
-        // Phase 8: Completion
-        { id: "f-final-checks", action: "log", logMessage: "[VERIFYING] Content inspection complete.", logType: "system"},
-        { id: "f-gen-complete", action: "log", logMessage: "[COMPLETE] Portfolio generated successfully!", logType: "system"}
+        { id: "p1-f-sep2", action: "renderSection", targetSectionId: "sep2"},
+
+        { id: "p1-f-skills-log", action: "log", logMessage: "[RENDERING V1] Skills section...", logType: "checking" },
+        { id: "p1-f-skills-h2", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-h2", targetVersionId: "v1"},
+        { id: "p1-f-skills-js", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-js", targetVersionId: "v1"},
+        { id: "p1-f-skills-html", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-html", targetVersionId: "v1"},
+        { id: "p1-f-skills-react", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-react", targetVersionId: "v1"},
+        { id: "p1-f-skills-node", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-node", targetVersionId: "v1"},
+        { id: "p1-f-skills-uiux", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-uiux", targetVersionId: "v1"},
+
+        { id: "p1-f-sep3", action: "renderSection", targetSectionId: "sep3"},
+
+        { id: "p1-f-contact-log", action: "log", logMessage: "[RENDERING V1] Contact section...", logType: "checking" },
+        { id: "p1-f-contact-h2", action: "renderElement", targetSectionId: "contact", targetElementId: "contact-h2", targetVersionId: "v1"},
+        { id: "p1-f-contact-email", action: "renderElement", targetSectionId: "contact", targetElementId: "contact-email", targetVersionId: "v1"},
+        { id: "p1-f-contact-github", action: "renderElement", targetSectionId: "contact", targetElementId: "contact-github", targetVersionId: "v1"},
+        { id: "p1-f-contact-linkedin", action: "renderElement", targetSectionId: "contact", targetElementId: "contact-linkedin", targetVersionId: "v1"},
+        
+        { id: "p1-f-log-draft-end", action: "log", logMessage: "[SYSTEM] Initial V1 draft complete.", logType: "system" },
+        { id: "p1-f-delay-after-v1", action: "delay", delayMs: 500 },
+
+        // P2: AI Review & Refinement Introduction
+        { id: "p2-f-log-review-start", action: "log", logMessage: "[AI_SYSTEM] Commencing review and refinement of the V1 draft...", logType: "system" },
+        { id: "p2-f-thought-review", action: "thought", logMessage: "[AI_THOUGHT] The V1 draft is a solid foundation. Let's enhance it for clarity, impact, and detail.", logType: "ai-thought" },
+        { id: "p2-f-delay-after-thought", action: "delay", delayMs: 670 },
+
+        // P3: Header Refinement (to V2)
+        { id: "p3-f-hdr-revisit-log", action: "log", logMessage: "[AI_REVISIT] Revisiting Header section for enhancements...", logType: "system" },
+        { id: "p3-f-hdr-visual-start", action: "setSectionVisualState", targetSectionId: "header", targetSectionVisualState: "inProgress" },
+        { id: "p3-f-hdr-thought", action: "thought", logMessage: "[AI_THOUGHT] The title 'Developer & Designer' is good, but 'Full-Stack Developer & UX Designer' is more specific for the enhanced profile.", logType: "ai-thought"},
+        { id: "p3-f-hdr-delay-thought", action: "delay", delayMs: 400},
+        { id: "p3-f-hdr-title-update", action: "updateElement", targetSectionId: "header", targetElementId: "header-h2-title", targetVersionId: "v2", logMessage: "[REVISING] Header title refined.", logType: "checking"},
+        { id: "p3-f-hdr-visual-end", action: "setSectionVisualState", targetSectionId: "header", targetSectionVisualState: "default" },
+        { id: "p3-f-hdr-delay-after", action: "delay", delayMs: 330},
+
+        // P4: About Me Refinement (to V2)
+        { id: "p4-f-about-revisit-log", action: "log", logMessage: "[AI_REVISIT] Refining 'About Me' section...", logType: "system" },
+        { id: "p4-f-about-visual-start", action: "setSectionVisualState", targetSectionId: "about", targetSectionVisualState: "inProgress" },
+        { id: "p4-f-about-p1-thought", action: "thought", logMessage: "[AI_THOUGHT] For 'About Me P1': The initial statement is okay. Let's make it more professional and highlight expertise.", logType: "ai-thought"},
+        { id: "p4-f-about-p1-delay", action: "delay", delayMs: 400},
+        { id: "p4-f-about-p1-update", action: "updateElement", targetSectionId: "about", targetElementId: "about-p1", targetVersionId: "v2", logMessage: "[REVISING] About Me - P1 updated.", logType: "checking"},
+        { id: "p4-f-about-p2-thought", action: "thought", logMessage: "[AI_THOUGHT] For 'About Me P2': The website demo description can be expanded to showcase problem-solving abilities.", logType: "ai-thought"},
+        { id: "p4-f-about-p2-delay", action: "delay", delayMs: 400},
+        { id: "p4-f-about-p2-update", action: "updateElement", targetSectionId: "about", targetElementId: "about-p2", targetVersionId: "v2", logMessage: "[REVISING] About Me - P2 updated.", logType: "checking"},
+        { id: "p4-f-about-visual-end", action: "setSectionVisualState", targetSectionId: "about", targetSectionVisualState: "default" },
+        { id: "p4-f-about-delay-after", action: "delay", delayMs: 330},
+
+        // P5: Skills Refinement (to V2 and adding new skills)
+        { id: "p5-f-skills-revisit-log", action: "log", logMessage: "[AI_REVISIT] Enhancing 'Skills' section...", logType: "system" },
+        { id: "p5-f-skills-visual-start", action: "setSectionVisualState", targetSectionId: "skills", targetSectionVisualState: "inProgress" },
+        { id: "p5-f-skills-h2-thought", action: "thought", logMessage: "[AI_THOUGHT] Changing 'Skills' header to 'Core Skills' for better focus.", logType: "ai-thought"},
+        { id: "p5-f-skills-h2-update", action: "updateElement", targetSectionId: "skills", targetElementId: "skills-h2", targetVersionId: "v2", logMessage: "[REVISING] Skills header updated.", logType: "checking"},
+        { id: "p5-f-skills-js-thought", action: "thought", logMessage: "[AI_THOUGHT] Expanding JavaScript/TypeScript with specific frameworks.", logType: "ai-thought"},
+        { id: "p5-f-skills-js-update", action: "updateElement", targetSectionId: "skills", targetElementId: "skills-js", targetVersionId: "v2", logMessage: "[REVISING] JavaScript/TypeScript skills detailed.", logType: "checking"},
+        { id: "p5-f-skills-node-thought", action: "thought", logMessage: "[AI_THOUGHT] Adding specifics for Node.js.", logType: "ai-thought"},
+        { id: "p5-f-skills-node-update", action: "updateElement", targetSectionId: "skills", targetElementId: "skills-node", targetVersionId: "v2", logMessage: "[REVISING] Node.js skills detailed.", logType: "checking"},
+        { id: "p5-f-skills-uiux-thought", action: "thought", logMessage: "[AI_THOUGHT] Detailing UI/UX Design tools.", logType: "ai-thought"},
+        { id: "p5-f-skills-uiux-update", action: "updateElement", targetSectionId: "skills", targetElementId: "skills-uiux", targetVersionId: "v2", logMessage: "[REVISING] UI/UX Design skills detailed.", logType: "checking"},
+        { id: "p5-f-skills-add-thought", action: "thought", logMessage: "[AI_THOUGHT] Incorporating additional key competencies: Python, API Design, Cloud, and DevOps.", logType: "ai-thought"},
+        { id: "p5-f-skills-add-python", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-python", targetVersionId: "v2", logMessage: "[ADDING] Python skills integrated.", logType: "checking"},
+        { id: "p5-f-skills-add-graphql", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-graphql", targetVersionId: "v2", logMessage: "[ADDING] API Design skills integrated.", logType: "checking"},
+        { id: "p5-f-skills-add-cloud", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-cloud", targetVersionId: "v2", logMessage: "[ADDING] Cloud Architecture skills integrated.", logType: "checking"},
+        { id: "p5-f-skills-add-devops", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-devops", targetVersionId: "v2", logMessage: "[ADDING] DevOps skills integrated.", logType: "checking"},
+        { id: "p5-f-skills-react-thought", action: "thought", logMessage: "[AI_THOUGHT] The separate 'React' line is now redundant due to expanded JS/TS details. Consolidating for clarity.", logType: "ai-thought"},
+        { id: "p5-f-skills-remove-react", action: "removeElement", targetElementId: "skills-react", logMessage: "[OPTIMIZING] Skill list consolidated.", logType: "checking"},
+        { id: "p5-f-skills-visual-end", action: "setSectionVisualState", targetSectionId: "skills", targetSectionVisualState: "default" },
+        { id: "p5-f-skills-delay-after", action: "delay", delayMs: 330},
+
+        // P6: Contact Section Review (Assuming V1 is final and no changes needed here)
+        { id: "p6-f-contact-review-log", action: "log", logMessage: "[AI_REVIEW] Contact section reviewed. V1 content is final.", logType: "system" },
+        { id: "p6-f-contact-delay", action: "delay", delayMs: 330},
+
+        // P7: Final Completion Messages
+        { id: "p7-f-final-checks", action: "log", logMessage: "[VERIFYING] All revisions and enhancements complete. Final content inspection...", logType: "system"},
+        { id: "p7-f-gen-complete", action: "log", logMessage: "[COMPLETE] Enhanced portfolio generated successfully!", logType: "system"}
     ]
-};
-
-// Example for how ENHANCE_COMMAND_TEXT could influence the flow if needed:
-// The GenerationEngine's handleCommand could, upon seeing ENHANCE_COMMAND_TEXT,
-// potentially set a flag that modifies which versions are targeted in the flow,
-// or it could even switch to a different 'flow' array within the sitePlan if you define multiple.
-// For now, this example primarily uses isFinal for the skip command and the flow explicitly chooses versions. 
+}; 
