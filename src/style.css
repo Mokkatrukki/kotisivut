@@ -263,3 +263,31 @@ p {
 #run-command:hover {
     background-color: #3a4a5e;
 }
+
+
+/* Style for sections being actively updated (dark theme) */
+
+.content-section.state-inProgress {
+    background-color: #1A1A1A;
+    /* A very dark gray, just a step above black */
+    border-left: 3px solid #4D4D4D;
+    /* A medium-dark gray for the border */
+    padding-left: 10px;
+    /* Add space for the border */
+    /* Adjust margin to keep text alignment if sections normally have no left padding/border */
+    margin-left: -13px;
+    /* Compensates for padding (10px) + border (3px) */
+    transition: background-color 0.3s ease, border-left 0.3s ease, margin-left 0.3s ease;
+    /* Smooth transition */
+}
+
+
+/* 
+   If you had previous ::before or ::after pseudo-elements for this state, 
+   ensure they are removed or commented out to avoid conflicts.
+   For example:
+   .section-wrapper.state-in-progress::before,
+   .section-wrapper.state-in-progress::after {
+     display: none;
+   }
+*/

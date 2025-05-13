@@ -152,18 +152,22 @@ export class UIController {
     }
 
     public setSectionVisualState(sectionId: string, state: 'default' | 'inProgress' | 'error'): void {
-        const sectionWrapper = document.getElementById(`section-wrapper-${sectionId}`);
+        const wrapperId = `section-wrapper-${sectionId}`;
+        const sectionWrapper = document.getElementById(wrapperId);
+
         if (sectionWrapper) {
-            sectionWrapper.classList.remove('state-default', 'state-in-progress', 'state-error');
-            if (state !== 'default') { // Add state class if not default
-                 sectionWrapper.classList.add(`state-${state}`);
+            sectionWrapper.classList.remove('state-default', 'state-inProgress', 'state-error');
+            
+            if (state !== 'default') {
+                sectionWrapper.classList.add(`state-${state}`);
             }
-             // Add a base class if not already present for consistent styling targets
+
+            // Add a base class if not already present for consistent styling targets
             if (!sectionWrapper.classList.contains('content-section')) {
                 sectionWrapper.classList.add('content-section');
             }
         } else {
-            console.warn(`Section wrapper for ${sectionId} not found to set visual state.`);
+            // console.warn(`[UIController] Section wrapper with ID "${wrapperId}" NOT FOUND to set visual state.`); // Kept as a useful warning
         }
     }
 
