@@ -1,12 +1,14 @@
 import './style.css';
-import { UIController } from './uiController';
-import { GenerationEngine } from './generationEngine';
+import { UIController } from './uiController.js';
+import { GenerationEngine } from './generationEngine.js';
+import { sitePlanData } from './sitePlan.js';
+import { SitePlan } from './types.js';
 
 // Extend the Window interface (if needed for debugging, otherwise can be removed)
 declare global {
     interface Window {
-        // Add debugging functions if necessary, e.g.:
-        // engine: GenerationEngine;
+        // engine?: GenerationEngine; // Optional: for debugging
+        // ui?: UIController;       // Optional: for debugging
     }
 }
 
@@ -14,8 +16,8 @@ function init() {
     // Instantiate the UI controller
     const uiController = new UIController();
 
-    // Instantiate the generation engine and pass the UI controller
-    const engine = new GenerationEngine(uiController);
+    // Instantiate the generation engine and pass the UI controller and sitePlanData
+    const engine = new GenerationEngine(uiController, sitePlanData as SitePlan); // Cast to SitePlan for type safety
 
     // Connect the UI's command input to the engine's command handler
     // Use bind to ensure 'this' context is correct inside handleCommand
@@ -23,10 +25,9 @@ function init() {
 
     // (Optional: Expose engine for debugging)
     // window.engine = engine;
+    // window.ui = uiController;
 
-    // Start the initial animation sequence
-    engine.startInitialSequence();
-
+    engine.initialize(); // Engine decides render mode (instant or animated)
 }
 
 // Start the application when the DOM is ready
