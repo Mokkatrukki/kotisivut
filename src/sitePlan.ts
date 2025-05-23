@@ -119,6 +119,11 @@ export const sitePlanData: SitePlan = {
                 { id: "skills-react", tag: "p", versions: [{ versionId: "v1", text: "• React" } ]}, // No v2 if it's merged into skills-js v2
                 { id: "skills-node", tag: "p", versions: [{ versionId: "v1", text: "• Node.js" },{ versionId: "v2", text: "• Node.js (Express, NestJS)", isFinal: true }]},
                 { id: "skills-python", tag: "p", versions: [{ versionId: "v2", text: "• Python (Django, Flask, FastAPI)", isFinal: true }]}, // Added in enhanced
+                { 
+                    id: "skills-go", 
+                    tag: "p", 
+                    versions: [{ versionId: "v2", text: "• Go (Golang)", isFinal: true }]
+                },
                 { id: "skills-graphql", tag: "p", versions: [{ versionId: "v2", text: "• GraphQL & RESTful API Design", isFinal: true }]},
                 { id: "skills-cloud", tag: "p", versions: [{ versionId: "v2", text: "• Cloud Architecture (AWS, Azure)", isFinal: true }]},
                 { id: "skills-devops", tag: "p", versions: [{ versionId: "v2", text: "• DevOps (Docker, Kubernetes, CI/CD)", isFinal: true }]},
@@ -238,6 +243,15 @@ export const sitePlanData: SitePlan = {
         { id: "p5-f-skills-add-graphql", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-graphql", targetVersionId: "v2", logMessage: "[ADDING] API Design skills integrated.", logType: "checking"},
         { id: "p5-f-skills-add-cloud", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-cloud", targetVersionId: "v2", logMessage: "[ADDING] Cloud Architecture skills integrated.", logType: "checking"},
         { id: "p5-f-skills-add-devops", action: "renderElement", targetSectionId: "skills", targetElementId: "skills-devops", targetVersionId: "v2", logMessage: "[ADDING] DevOps skills integrated.", logType: "checking"},
+        { 
+            id: "p5-f-skills-add-go", 
+            action: "renderElement", 
+            targetSectionId: "skills", 
+            targetElementId: "skills-go", 
+            targetVersionId: "v2", 
+            logMessage: "[ADDING] Go (Golang) skill integrated.", 
+            logType: "checking"
+        },
         { id: "p5-f-skills-react-thought", action: "thought", logMessage: "[AI_THOUGHT] The separate 'React' line is now redundant due to expanded JS/TS details. Consolidating for clarity.", logType: "ai-thought"},
         { id: "p5-f-skills-remove-react", action: "removeElement", targetElementId: "skills-react", logMessage: "[OPTIMIZING] Skill list consolidated.", logType: "checking"},
         { id: "p5-f-skills-visual-end", action: "setSectionVisualState", targetSectionId: "skills", targetSectionVisualState: "default" },
